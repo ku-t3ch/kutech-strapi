@@ -400,6 +400,38 @@ export interface ApiPartnerPartner extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPhotoActivityPhotoActivity
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'photo_activities';
+  info: {
+    displayName: 'Photo Activity';
+    pluralName: 'photo-activities';
+    singularName: 'photo-activity';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::photo-activity.photo-activity'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    titile: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSponsorSponsor extends Struct.CollectionTypeSchema {
   collectionName: 'sponsors';
   info: {
@@ -942,6 +974,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::partner.partner': ApiPartnerPartner;
+      'api::photo-activity.photo-activity': ApiPhotoActivityPhotoActivity;
       'api::sponsor.sponsor': ApiSponsorSponsor;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
