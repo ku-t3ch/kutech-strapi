@@ -432,6 +432,37 @@ export interface ApiPhotoActivityPhotoActivity
   };
 }
 
+export interface ApiRoadmapRoadmap extends Struct.CollectionTypeSchema {
+  collectionName: 'roadmaps';
+  info: {
+    displayName: 'Roadmap';
+    pluralName: 'roadmaps';
+    singularName: 'roadmap';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.String;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::roadmap.roadmap'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSponsorSponsor extends Struct.CollectionTypeSchema {
   collectionName: 'sponsors';
   info: {
@@ -975,6 +1006,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::partner.partner': ApiPartnerPartner;
       'api::photo-activity.photo-activity': ApiPhotoActivityPhotoActivity;
+      'api::roadmap.roadmap': ApiRoadmapRoadmap;
       'api::sponsor.sponsor': ApiSponsorSponsor;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
